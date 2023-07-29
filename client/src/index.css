@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.icon,
+.iconx {
+  color: var(--primary-dark);
+}
+
+@layer base {
+  :root {
+    --primary-dark: #5651e5;
+    --primary-light: #709dff;
+  }
+  body {
+    @apply font-mono;
+  }
+  li {
+    @apply p-4 text-xl cursor-pointer;
+  }
+  h1 {
+    @apply text-xl md:text-2xl font-bold;
+  }
+  h2 {
+    @apply text-3xl font-bold;
+  }
+  h3 {
+    @apply font-bold;
+  }
+  button {
+    @apply p-3 border bg-gradient-to-r from-[var(--primary-dark)] to-[var(--primary-light)] text-white rounded-md;
+  }
+  .icon {
+    @apply text-2xl cursor-pointer;
+  }
+  .iconx {
+    @apply text-2xl cursor-pointer rounded-full;
+  }
+}
