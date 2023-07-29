@@ -10,10 +10,12 @@ function Search() {
       <div className="lg:col-span-3 flex flex-col justify-evenly">
         <h1>Luxuary trips at low price</h1>
         <p className="py-2">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo
-          similique at quam explicabo sunt obcaecati a voluptas, id ipsam sequi
-          magni, dolore provident deleniti reprehenderit eius fuga. Temporibus,
-          suscipit laborum?
+          At Traveligo, we bring you a seamless travel booking experience like
+          never before. Whether you're planning a weekend getaway or a
+          month-long adventure, we've got you covered with a wide array of
+          options to choose from. Our user-friendly platform allows you to book
+          hotels, homestays, vehicles, and exciting packages at your
+          convenience.
         </p>
         <div className="grid sm:grid-cols-2 gap-8 py-4">
           <div className="flex flex-col lg:flex-row items-center text-center m-4">
