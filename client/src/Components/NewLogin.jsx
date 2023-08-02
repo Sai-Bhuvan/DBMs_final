@@ -11,41 +11,45 @@ function Newlogin() {
 
   async function handleLogin(event) {
     event.preventDefault();
-   
+
     console.log(email, password);
-    try{
-    await axios.post('http://localhost:4000/login', {
-       email,
-       password,
-      }, {withCredentials: false})
-      .then(function (response) {
-        console.log(response);
-        
-        
-        if (response.data.message === "Password correct") {
+    try {
+      await axios
+        .post(
+          "http://localhost:4000/login",
+          {
+            email,
+            password,
+          },
+          { withCredentials: false }
+        )
+        .then(function (response) {
+          console.log(response);
+
+          if (response.data.message === "Password correct") {
             setUser(response?.data?.user);
-             window.localStorage.setItem('email', email);
-             window.localStorage.setItem('name', response?.data?.user?.name);
+            window.localStorage.setItem("email", email);
+            window.localStorage.setItem("name", response?.data?.user?.name);
+            window.localStorage.setItem("id", response?.data?.user?._id);
             alert("Login successful!");
-        setRedirect("/");
-        }
-        else{
+            setRedirect("/");
+          } else {
             alert("User does not exist! Please signup.");
-           setRedirect("/signup");
-        }
-        
-      });
-      
+            setRedirect("/signup");
+          }
+        });
     } catch (err) {
-        alert("Login unsuccessful. Please check the credentials entered and try again later.");
-        console.log(err);
+      alert(
+        "Login unsuccessful. Please check the credentials entered and try again later."
+      );
+      console.log(err);
     }
   }
 
   console.log(user?.name);
   if (redirect) {
-    return <Navigate to={redirect} />
-    }
+    return <Navigate to={redirect} />;
+  }
 
   return (
     <form onSubmit={handleLogin} className=" bg-slate-100  h-full w-full">
@@ -76,7 +80,7 @@ function Newlogin() {
                 className="rounded-md p-2  border  border-cyan-700 w-60"
                 placeholder="Email"
                 value={email}
-                onChange={(event)=>(setEmail(event.target.value))}
+                onChange={(event) => setEmail(event.target.value)}
               ></input>
             </div>
             <div className="m-3 ">
@@ -85,19 +89,24 @@ function Newlogin() {
                 className="rounded-md p-2 border  border-cyan-700 w-60"
                 placeholder="Password"
                 value={password}
-                onChange={(event)=>(setPassword(event.target.value))}
+                onChange={(event) => setPassword(event.target.value)}
               ></input>
             </div>
-            <button type="submit" className="button m-2 bg-blue-400 bg-opacity-40 text-blue-600 font-bold text-xl rounded-lg px-4 py-2">Sign In</button>
+            <button
+              type="submit"
+              className="button m-2 bg-blue-400 bg-opacity-40 text-blue-600 font-bold text-xl rounded-lg px-4 py-2"
+            >
+              Sign In
+            </button>
           </div>
 
           <div className="flex gap-2 justify-center mb-4">
-          <p className="text-blue-400 mt-4 text-lg">Don't have an account?</p>
-          <Link to={'/signup'}>
-          <p className="text-blue-600 mt-4 text-lg font-medium cursor-pointer">
-            Sign Up
-          </p>
-          </Link>
+            <p className="text-blue-400 mt-4 text-lg">Don't have an account?</p>
+            <Link to={"/signup"}>
+              <p className="text-blue-600 mt-4 text-lg font-medium cursor-pointer">
+                Sign Up
+              </p>
+            </Link>
           </div>
         </div>
       </div>
