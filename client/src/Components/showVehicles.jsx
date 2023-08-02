@@ -20,7 +20,7 @@ export default function ShowVehicles(vehicle) {
         <div className="items-center justify-center">
       <div className=" grid grid-cols-2 bg-slate-100 w-screen h-screen">
         <div className="cols-span-3 m-4 ">
-          <div className="grid grid-flow-col  sticky top-0 m-5">
+          <div className="grid grid-flow-col top-0 m-5">
             <div className=" text-pink-400 text-3xl m-5 font-bold   my-6 justify-center">
               Traveligo
             </div>

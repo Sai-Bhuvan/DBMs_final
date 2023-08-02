@@ -251,7 +251,56 @@ app.post("/save-packages", async(req, res,)=>{
         res.json({places: places, vehicles: vehicles, packages: packages});
     })
 
+    app.post('/delete-place', async(req, res)=>{
+        const {_id} = req.body;
+        console.log({_id});
+        await Place.deleteOne({_id: _id});
+        const places = await Place.find();
+        res.json(places);
+    })
+    app.post('/delete-vehicle', (req, res)=>{
+        const {_id} = req.body;
+        console.log({_id});
+        Vehicle.deleteOne({_id: _id});
+    })
+    app.post('/delete-package', (req, res)=>{
+        const {_id} = req.body;
+        console.log({_id});
+        Package.deleteOne({_id: _id});
+    })
 
+    app.put('/places', async (req, res)=>{
+        const { _id, title, address, description, checkIn, checkOut, price} = req.body;
+        console.log({_id, title, address, description, checkIn, checkOut, price});
+        await Place.findOneAndUpdate({_id: _id}, {title, address, description, checkIn, checkOut, price});
+        placeUpdated = await Place.findOne({_id: _id });
+        res.json(placeUpdated);
+    })
+
+    app.put('/packages', async (req, res)=>{
+        const { _id, packagename, days, description, places, price} = req.body;
+        console.log({_id, packagename, days, description, places, price});
+        await Package.findOneAndUpdate({_id: _id}, {title: packagename, days, description, places, price});
+        packageUpdated = await Package.findOne({_id: _id });
+        res.json(packageUpdated);
+    })
+
+    app.post('/dashboard', async(req, res)=>{
+
+        const {id} = req.body;
+    console.log(id);
+        const totalPlaces = (await Place.find()).length;
+        const totalVehicles = (await Vehicle.find()).length;
+        const totalPackages = (await Package.find()).length;
+        
+        const myPlaces = (await Place.find({owner: id})).length;
+        const myVehicles = (await Vehicle.find({owner: id})).length;
+        const myPackages = (await Package.find({owner: id})).length;
+        
+        const myBookings = (await Booking.find({customer: id})).length;
+
+        res.json({totalPlaces, totalVehicles, totalPackages, myPlaces, myVehicles, myPackages, myBookings});
+    })
 
 
 app.listen(4000);

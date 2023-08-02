@@ -5,6 +5,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { BiEdit } from "react-icons/bi";
 import { Link, Navigate } from "react-router-dom";
 import Addplace from "./AddPlace";
+import EditPlaces from "./EditPlaces";
 // import { Addplace } from "./AddPlace";
 
 export default function PlaceCard({ place }) {
@@ -56,6 +57,7 @@ export default function PlaceCard({ place }) {
       })
       .then((res) => {
         console.log(res);
+        window.location.reload();
       });
   }
 
@@ -158,7 +160,6 @@ export default function PlaceCard({ place }) {
               <div>
                 {isOwner && (
                   <button
-                    // to={"/places/new"}
                     onClick={() => setEdit(true)}
                     className="button m-3 font-extrabold text-2xl"
                   >
@@ -171,8 +172,8 @@ export default function PlaceCard({ place }) {
         </div>
       )}
       {edit && (
-        <div className="ml-20 w-full mx-1/2">
-          <Addplace place={place} />
+        <div className="ml-20 w-full ">
+          <EditPlaces place={place} />
         </div>
       )}
     </div>

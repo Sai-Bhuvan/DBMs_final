@@ -12,6 +12,7 @@ import ShowPackage from "./Components/showPackages";
 import About from "./Components/About";
 import BookingsPage from "./Components/BookingsPage";
 import ContactUs from "./Components/ContactUs";
+import Dashboard from "./Components/Dashboard";
 // import Search_loc from "./search_loc";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path='/signup' element={<Newsignup />}/>
           <Route path='/about' element={<About />}/>
           <Route path='/contact' element={<ContactUs />}/>
+          <Route path='/dashboard' element={<Dashboard />}/>
           <Route path='/places' element={<ShowPlaces />}/>
           <Route path='/places/new' element={<Addplace />}/>
           <Route path='/vehicles' element={<ShowVehicles />}/>

@@ -2,6 +2,10 @@ import axios from "axios";
 import { useState } from "react";
 import { BsArrowLeftSquareFill, BsArrowRightSquareFill } from "react-icons/bs";
 import { Navigate } from "react-router-dom";
+import BookedPackage from "./BookedPackage";
+import { AiFillDelete } from "react-icons/ai";
+import { BiEdit } from "react-icons/bi";
+import EditPackages from "./EditPackages";
 
 export default function PackageCard({packagee}) {
   
@@ -17,8 +21,15 @@ export default function PackageCard({packagee}) {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [redirect, setRedirect] = useState(false);
+    const [edit, setEdit] = useState(false);
+
+    const cust_id = window.localStorage.getItem("id");
+    const isOwner = cust_id === packagee.owner;
+    console.log(isOwner);
+
 
     async function bookPackage(event) {
+      event.preventDefault();
       console.log({id: packagee?._id});
       if (startDate !== "" && endDate !== "") {
         axios.post('http://localhost:4000/bookings', {
@@ -40,6 +51,22 @@ export default function PackageCard({packagee}) {
       }
     }
 
+    function deletePlace(event) {
+      event.preventDefault();
+      axios
+        .post("http://localhost:4000/delete-package", {
+          _id: packagee?._id,
+        })
+        .then((res) => {
+          console.log(res);
+        });
+    }
+
+    
+    function reloadd() {
+      window.location.reload();
+  }
+
   const previmg = () => {
     setslide(slide === length - 1 ? 0 : slide + 1);
   };
@@ -51,7 +78,8 @@ export default function PackageCard({packagee}) {
     return <Navigate to={"/bookings"} />
   }
     return (
-        <div className="bg-slate-500 bg-opacity-20 rounded-lg m-5 grid grid-flow-col gap-3 shadow-lg w-screen mx-4 my-6">
+        <div>
+          <div className="bg-slate-500 bg-opacity-20 rounded-lg m-5 grid grid-flow-col gap-3 shadow-lg w-screen mx-4 my-6">
             <div className="px-4 py-2 relative grid grid-flow-row">
               <div className=" grid grid-flow-col ">
                 <h1 className=" font-bold text-5xl">{title}</h1>
@@ -105,10 +133,43 @@ export default function PackageCard({packagee}) {
                 <input type="date" className="text-xl" value={endDate} onChange={(event)=>setEndDate(event.target.value)}/>
             </div>
            </div>
+           <div className="flex gap-4 justify-center">
               <div>
-                <button className="button m-3 font-extrabold text-2xl" onClick={bookPackage}>Book Now</button>
+                <button
+                  className="button m-3 font-extrabold text-2xl"
+                  onClick={bookPackage}
+                >
+                  Book Now
+                </button>
+              </div>
+              <div>
+                {isOwner && (
+                  <button
+                    onClick={deletePlace}
+                    className="button m-3 font-extrabold text-2xl"
+                  >
+                    <AiFillDelete></AiFillDelete>
+                  </button>
+                )}
+              </div>
+              <div>
+                {isOwner && (
+                  <button
+                    onClick={() => setEdit(true)}
+                    className="button m-3 font-extrabold text-2xl"
+                  >
+                    <BiEdit></BiEdit>
+                  </button>
+                )}
               </div>
             </div>
+            </div>
           </div>
+          {edit && (
+        <div className="ml-20 w-full ">
+          <EditPackages packagee={packagee} reloadd={reloadd}/>
+        </div>
+      )}
+        </div>
     )
 }
